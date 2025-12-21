@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 	"time"
 
@@ -63,12 +64,29 @@ func Send(baseURL, path, method string, params map[string]string, body string) t
 }
 
 func buildURL(baseURL, path string, params map[string]string) string {
-	url := strings.TrimSuffix(baseURL, "/") + path
+	fullPath := strings.TrimSuffix(baseURL, "/") + path
 
+	// Handle path parameters
+	pathParams := make(map[string]bool)
 	for key, value := range params {
 		placeholder := fmt.Sprintf("{%s}", key)
-		url = strings.ReplaceAll(url, placeholder, value)
+		if strings.Contains(fullPath, placeholder) {
+			fullPath = strings.ReplaceAll(fullPath, placeholder, value)
+			pathParams[key] = true
+		}
 	}
 
-	return url
+	// Handle query parameters
+	queryParams := url.Values{}
+	for key, value := range params {
+		if !pathParams[key] && value != "" {
+			queryParams.Add(key, value)
+		}
+	}
+
+	if len(queryParams) > 0 {
+		fullPath += "?" + queryParams.Encode()
+	}
+
+	return fullPath
 }

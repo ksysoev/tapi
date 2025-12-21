@@ -363,14 +363,12 @@ func (m *Model) setupRequestBuilder() {
 	m.inputs = make([]textinput.Model, 0)
 
 	for _, param := range op.Parameters {
-		if param.Required {
-			ti := textinput.New()
-			ti.Placeholder = param.Name
-			ti.CharLimit = 256
-			ti.Width = 50
-			ti.Prompt = fmt.Sprintf("%s (%s): ", param.Name, param.In)
-			m.inputs = append(m.inputs, ti)
-		}
+		ti := textinput.New()
+		ti.Placeholder = param.Name
+		ti.CharLimit = 256
+		ti.Width = 50
+		ti.Prompt = fmt.Sprintf("%s (%s): ", param.Name, param.In)
+		m.inputs = append(m.inputs, ti)
 	}
 
 	if op.RequestBody != nil && op.RequestBody.Required {
