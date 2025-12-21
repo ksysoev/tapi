@@ -1,4 +1,4 @@
-module github.com/kirill/tapi
+module github.com/ksysoev/tapi
 
 go 1.24.4
 
@@ -8,7 +8,6 @@ require (
 	github.com/charmbracelet/lipgloss v1.0.0
 	github.com/getkin/kin-openapi v0.128.0
 	github.com/spf13/cobra v1.8.1
-	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -37,4 +36,5 @@ require (
 	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/sys v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

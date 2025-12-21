@@ -8,9 +8,9 @@ import (
 	"github.com/charmbracelet/bubbles/viewport"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/kirill/tapi/internal/styles"
-	"github.com/kirill/tapi/pkg/openapi"
-	"github.com/kirill/tapi/pkg/request"
+	"github.com/ksysoev/tapi/internal/styles"
+	"github.com/ksysoev/tapi/pkg/openapi"
+	"github.com/ksysoev/tapi/pkg/request"
 )
 
 type view int

@@ -20,7 +20,7 @@ A beautiful terminal-based OpenAPI specification explorer and API testing tool b
 ### From Source
 
 ```bash
-git clone https://github.com/kirill/tapi
+git clone https://github.com/ksysoev/tapi
 cd tapi
 make install
 ```

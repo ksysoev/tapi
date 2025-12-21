@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/kirill/tapi/pkg/openapi"
-	"github.com/kirill/tapi/pkg/tui"
+	"github.com/ksysoev/tapi/pkg/openapi"
+	"github.com/ksysoev/tapi/pkg/tui"
 )
 
 func runExplore(ctx context.Context, filePath, url string) error {

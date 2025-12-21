@@ -3,7 +3,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/kirill/tapi/pkg/openapi"
+	"github.com/ksysoev/tapi/pkg/openapi"
 )
 
 func runValidate(filePath string) error {
