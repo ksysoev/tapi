@@ -6,6 +6,7 @@ import (
 
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/ksysoev/tapi/internal/styles"
+	"github.com/ksysoev/tapi/pkg/formatter"
 	"github.com/ksysoev/tapi/pkg/request"
 )
 
@@ -46,7 +47,10 @@ func (m Model) formatResponse(resp request.ResponseMsg) string {
 	b.WriteString("\n")
 	b.WriteString(styles.LabelStyle.Render("Body:"))
 	b.WriteString("\n")
-	b.WriteString(resp.Body)
+	
+	contentType := resp.Headers.Get("Content-Type")
+	formattedBody := formatter.DetectAndFormat(resp.Body, contentType)
+	b.WriteString(formattedBody)
 
 	return b.String()
 }

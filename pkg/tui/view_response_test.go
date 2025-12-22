@@ -87,7 +87,8 @@ func TestFormatResponseSuccess(t *testing.T) {
 		"Content-Type",
 		"application/json",
 		"Body:",
-		`{"result": "success"`,
+		"result",
+		"success",
 	}
 
 	for _, want := range expectedContains {
