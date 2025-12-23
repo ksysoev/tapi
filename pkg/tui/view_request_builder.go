@@ -102,13 +102,16 @@ func (m Model) renderRequestBuilder() string {
 		}
 	}
 
+	// Help to fix issue that content is not possible to scroll down fully
+	b.WriteString("\n\n\n\n")
+
 	return b.String()
 }
 
 func (m Model) sendRequest() tea.Cmd {
 	op := m.getCurrentOperation()
 	path := m.getCurrentPath()
-	
+
 	if op == nil || path == nil {
 		return nil
 	}

@@ -47,10 +47,13 @@ func (m Model) formatResponse(resp request.ResponseMsg) string {
 	b.WriteString("\n")
 	b.WriteString(styles.LabelStyle.Render("Body:"))
 	b.WriteString("\n")
-	
+
 	contentType := resp.Headers.Get("Content-Type")
 	formattedBody := formatter.DetectAndFormat(resp.Body, contentType)
 	b.WriteString(formattedBody)
+
+	// Help to fix issue that content is not possible to scroll down fully
+	b.WriteString("\n\n\n\n")
 
 	return b.String()
 }

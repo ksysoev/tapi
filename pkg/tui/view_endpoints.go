@@ -25,6 +25,7 @@ func (m Model) handleEndpointsKeys(msg tea.KeyMsg) (tea.Model, tea.Cmd) {
 	case "enter", "l", "right":
 		m.currentView = viewOperationDetails
 		m.viewport.SetContent(m.getOperationDetails())
+		m.viewport.GotoTop()
 	}
 	return m, nil
 }
@@ -37,7 +38,7 @@ func (m Model) renderEndpoints() string {
 
 	start := 0
 	end := len(m.endpointsList)
-	
+
 	maxVisible := m.height - 15
 	if end-start > maxVisible {
 		if m.selectedEndpoint > maxVisible/2 {
@@ -67,6 +68,9 @@ func (m Model) renderEndpoints() string {
 			b.WriteString("\n")
 		}
 	}
+
+	// Help to fix issue that content is not possible to scroll down fully
+	b.WriteString("\n\n\n\n")
 
 	return b.String()
 }

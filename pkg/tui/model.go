@@ -76,6 +76,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.lastResponse = msg.Body
 		m.currentView = viewResponse
 		m.viewport.SetContent(m.formatResponse(msg))
+		m.viewport.YOffset = 0
 	}
 
 	return m, nil
@@ -144,7 +145,7 @@ func (m Model) View() string {
 func (m Model) renderHeader() string {
 	title := styles.TitleStyle.Render("🚀 TAPI - Terminal API Explorer")
 	subtitle := styles.SubtitleStyle.Render(fmt.Sprintf("%s v%s", m.spec.Title, m.spec.Version))
-	
+
 	return lipgloss.JoinVertical(lipgloss.Left, title, subtitle, "")
 }
 

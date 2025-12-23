@@ -80,7 +80,11 @@ func (m Model) getOperationDetails() string {
 		for status, resp := range op.Responses {
 			b.WriteString(fmt.Sprintf("  • %s - %s\n", status, resp.Description))
 		}
+		b.WriteString("\n")
 	}
+
+	// Help to fix issue that content is not possible to scroll down fully
+	b.WriteString("\n\n\n\n")
 
 	return b.String()
 }
