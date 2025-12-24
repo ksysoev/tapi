@@ -1,0 +1,70 @@
+version: 2
+
+project_name: tapi
+before:
+  hooks:
+    - go mod tidy
+builds:
+  - main: cmd/tapi/main.go
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+archives:
+  - name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+checksum:
+  name_template: "checksums.txt"
+changelog:
+  sort: asc
+release:
+  draft: true
+  github:
+    owner: ksysoev
+    name: tapi
+  name_template: "{{ .Tag }}"
+  prerelease: auto
+       
+brews:
+  - name: tapi
+    repository:
+      owner: ksysoev
+      name: homebrew-tapi
+    skip_upload: auto
+    directory: Formula
+    homepage: "https://github.com/ksysoev/tapi"
+    description: "Terminal API Explorer - A beautiful TUI for OpenAPI specs"
+    test: |
+      system "#{bin}/tapi", "--version"
+    install: |
+      bin.install 'tapi'
+nfpms:
+  - id: tapi
+    vendor: "ksysoev"
+    homepage: "https://github.com/ksysoev/tapi"
+    maintainer: "Kirill Sysoev <k.sysoev@me.com>"
+    description: "Terminal API Explorer - A beautiful TUI for OpenAPI specifications"
+    license: MIT
+    bindir: "/usr/bin"
+    formats:
+      - apk
+      - deb
+      - rpm
+snapcrafts:
+  - name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    summary: "Terminal API Explorer"
+    description: "A beautiful terminal-based OpenAPI specification explorer and API testing tool."
+    license: MIT
+    base: "core18"
+    grade: devel
+    confinement: strict
+    apps:
+      tapi:
+        plugs: ["network", "network-bind"]
