@@ -2,6 +2,8 @@ package tui
 
 import (
 	"fmt"
+	"sort"
+	"strings"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	"github.com/charmbracelet/bubbles/viewport"
@@ -46,6 +48,24 @@ func NewModel(spec *openapi.Spec) Model {
 			endpoints = append(endpoints, fmt.Sprintf("%s %s", op.Method, path.Path))
 		}
 	}
+
+	// Sort endpoints by path first, then by method
+	sort.Slice(endpoints, func(i, j int) bool {
+		partsI := strings.Fields(endpoints[i])
+		partsJ := strings.Fields(endpoints[j])
+		
+		if len(partsI) < 2 || len(partsJ) < 2 {
+			return endpoints[i] < endpoints[j]
+		}
+		
+		pathI := strings.Join(partsI[1:], " ")
+		pathJ := strings.Join(partsJ[1:], " ")
+		
+		if pathI == pathJ {
+			return partsI[0] < partsJ[0]
+		}
+		return pathI < pathJ
+	})
 
 	vp := viewport.New(80, 20)
 	vp.Style = styles.PanelStyle
