@@ -115,7 +115,7 @@ func TestExploreCommandValidation(t *testing.T) {
 				if err != nil {
 					t.Fatalf("Failed to find explore command: %v", err)
 				}
-				exploreCmd.ParseFlags(tt.args[1:])
+				_ = exploreCmd.ParseFlags(tt.args[1:])
 			}
 		})
 	}

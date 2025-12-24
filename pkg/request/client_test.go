@@ -5,8 +5,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	tea "github.com/charmbracelet/bubbletea"
 )
 
 func TestBuildURL(t *testing.T) {
@@ -99,7 +97,7 @@ func TestSend(t *testing.T) {
 					t.Errorf("Expected GET request, got %s", r.Method)
 				}
 				w.WriteHeader(http.StatusOK)
-				json.NewEncoder(w).Encode(map[string]string{"message": "success"})
+				_ = json.NewEncoder(w).Encode(map[string]string{"message": "success"})
 			},
 			wantErr: false,
 		},
@@ -118,7 +116,7 @@ func TestSend(t *testing.T) {
 					t.Errorf("Expected Content-Type application/json, got %s", contentType)
 				}
 				w.WriteHeader(http.StatusCreated)
-				json.NewEncoder(w).Encode(map[string]string{"id": "123"})
+				_ = json.NewEncoder(w).Encode(map[string]string{"id": "123"})
 			},
 			wantErr: false,
 		},
@@ -133,7 +131,7 @@ func TestSend(t *testing.T) {
 					t.Errorf("Expected path /users/123, got %s", r.URL.Path)
 				}
 				w.WriteHeader(http.StatusOK)
-				json.NewEncoder(w).Encode(map[string]string{"id": "123"})
+				_ = json.NewEncoder(w).Encode(map[string]string{"id": "123"})
 			},
 			wantErr: false,
 		},
@@ -150,7 +148,7 @@ func TestSend(t *testing.T) {
 					t.Errorf("Expected page=1&limit=10, got page=%s&limit=%s", page, limit)
 				}
 				w.WriteHeader(http.StatusOK)
-				json.NewEncoder(w).Encode(map[string]string{"count": "10"})
+				_ = json.NewEncoder(w).Encode(map[string]string{"count": "10"})
 			},
 			wantErr: false,
 		},
@@ -162,7 +160,7 @@ func TestSend(t *testing.T) {
 			body:   "",
 			serverResponse: func(w http.ResponseWriter, r *http.Request) {
 				w.WriteHeader(http.StatusInternalServerError)
-				json.NewEncoder(w).Encode(map[string]string{"error": "server error"})
+				_ = json.NewEncoder(w).Encode(map[string]string{"error": "server error"})
 			},
 			wantErr: false,
 		},
@@ -232,7 +230,7 @@ func TestSendReturnsTeaCmd(t *testing.T) {
 		t.Fatal("Expected non-nil tea.Cmd")
 	}
 
-	var _ tea.Cmd = cmd
+	var _ = cmd
 }
 
 func TestSendHeadersSet(t *testing.T) {

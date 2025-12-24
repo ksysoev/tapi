@@ -47,7 +47,7 @@ func Send(baseURL, path, method string, params map[string]string, body string) t
 		if err != nil {
 			return ResponseMsg{Error: fmt.Errorf("request failed: %w", err)}
 		}
-		defer resp.Body.Close()
+		defer func() { _ = resp.Body.Close() }()
 
 		respBody, err := io.ReadAll(resp.Body)
 		if err != nil {

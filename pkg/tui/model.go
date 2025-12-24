@@ -29,15 +29,12 @@ type Model struct {
 	currentView       view
 	endpointsList     []string
 	selectedEndpoint  int
-	selectedOperation int
-	cursor            int
 	width             int
 	height            int
 	viewport          viewport.Model
 	inputs            []textinput.Model
 	focusedInput      int
 	lastResponse      string
-	err               error
 	showHelp          bool
 }
 

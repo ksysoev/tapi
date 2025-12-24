@@ -79,7 +79,7 @@ func TestLoadFromURL(t *testing.T) {
 				return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 					w.Header().Set("Content-Type", "application/json")
 					w.WriteHeader(http.StatusOK)
-					w.Write([]byte(validSpec))
+					_, _ = w.Write([]byte(validSpec))
 				}))
 			},
 			wantErr: false,
@@ -110,6 +110,7 @@ func TestLoadFromURL(t *testing.T) {
 			if !tt.wantErr {
 				if spec == nil {
 					t.Error("LoadFromURL() returned nil spec without error")
+					return
 				}
 				if spec.Title != "Test API" {
 					t.Errorf("Expected title 'Test API', got '%s'", spec.Title)
